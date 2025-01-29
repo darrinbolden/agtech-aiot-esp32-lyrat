@@ -1,0 +1,17 @@
+name: ESP32 CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up ESP-IDF
+        run: |
+          git clone --recursive https://github.com/espressif/esp-idf.git
+          ./esp-idf/install.sh
+          . ./esp-idf/export.sh
+      - name: Build project
+        run: |
+          idf.py build
